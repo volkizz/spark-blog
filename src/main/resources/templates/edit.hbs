@@ -9,7 +9,9 @@
                     <label for="content">Entry</label>
                     <textarea rows="5" name="content">{{blog.content}}</textarea>
                     <label for="tag"> Tag</label>
-                    <input type="text" value="{{blog.tag}}" name="tag"><br>
+                    {{#each blog.tags}}
+                    <input type="text" value="{{this}}" name="tag"><br>
+                    {{/each}}
                     <input type="submit" value="Save Entry" class="button">
                     <a href="/index/{{blog.slug}}" class="button button-secondary">Cancel</a>
                 </form>
