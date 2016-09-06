@@ -9,7 +9,10 @@
                         <p>{{blog.content}}</p>
                         <p><a class="link" href="/index/{{blog.slug}}/edit">Edit Entry</a></p>
                     </div>
-                    <strong>TAG: {{blog.tag}}</strong>
+                    <h4>TAG: </h4>
+                    {{#each blog.tags}}
+                        <h4>{{this}}</h4>
+                    {{/each}}
                 </article>
             </div>
         </div>

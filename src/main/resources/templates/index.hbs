@@ -6,7 +6,10 @@
             <article>
                 <h2><a href="index/{{slug}}">{{title}}</a></h2>
                 <time>{{date}}</time>
-                <h4>TAG: {{tag}}</h4>
+                <h4>TAG: </h4>
+                {{#each tags}}
+                    <h4>{{this}}</h4>
+                {{/each}}
             </article>
             {{/each}}
         </div>

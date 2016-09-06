@@ -3,25 +3,22 @@ package com.teamtreehouse.blog.model;
 import com.github.slugify.Slugify;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class BlogEntry {
     private String slug;
     private String title;
     private Date date;
     private String content;
-    private String tag;
+    private Set<String> tags;
     private List<Comment> comments;
 
-    public BlogEntry(String title, Date date, String content, List<Comment> comments, String tag) {
+    public BlogEntry(String title, Date date, String content, List<Comment> comments, Set<String> tags) {
         this.title = title;
         this.date = date;
         this.content = content;
         this.comments = comments;
-        this.tag = tag;
+        this.tags = tags;
         try {
             Slugify slugify = new Slugify();
             slug = slugify.slugify(title);
@@ -30,12 +27,12 @@ public class BlogEntry {
         }
     }
 
-    public BlogEntry(String title, String content, String tag) {
+    public BlogEntry(String title, String content, Set<String> tags) {
         this.title = title;
         this.date = new Date();
         this.content = content;
         this.comments = new ArrayList<>();
-        this.tag = tag;
+        this.tags = tags;
         try {
             Slugify slugify = new Slugify();
             slug = slugify.slugify(title);
@@ -58,11 +55,8 @@ public class BlogEntry {
         return content;
     }
 
-    public String getTag() {
-        if(Objects.equals(tag, "")){
-            return "NO tags";
-        }
-        return tag;
+    public Set<String> getTags() {
+        return tags;
     }
 
     public List<Comment> getComments() {
@@ -77,8 +71,8 @@ public class BlogEntry {
         this.content = content;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public void setTags(Set<String> tags) {
+        this.tags = tags;
     }
 
     public void setSlug(String slug) {
