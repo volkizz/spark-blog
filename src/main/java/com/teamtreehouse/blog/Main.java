@@ -8,9 +8,7 @@ import com.teamtreehouse.blog.model.Comment;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import static spark.Spark.*;
 
@@ -69,7 +67,9 @@ public class Main {
         get("/index/new/edit", (req, res) -> new ModelAndView(null, "new.hbs"), new HandlebarsTemplateEngine());
 
         post("/index/new/entry", (req, res) -> {
-            BlogEntry blog = new BlogEntry(req.queryParams("title"), req.queryParams("content"),req.queryParams("tag"));
+            Set<String> tags = new HashSet<>();
+            tags.add(req.queryParams("tag"));
+            BlogEntry blog = new BlogEntry(req.queryParams("title"), req.queryParams("content"), tags);
             dao.addEntry(blog);
             res.redirect("/");
             return null;
@@ -83,10 +83,12 @@ public class Main {
 
         post("/index/:slug/edit/save", (req, res) ->{
             String title = req.params("slug");
+            Set<String> tags = new HashSet<String>();
+            tags.add(req.queryParams("tag"));
             BlogEntry blog = dao.findEntryBySlug(title);
             blog.setTitle(req.queryParams("title"));
             blog.setContent(req.queryParams("content"));
-            blog.setTag(req.queryParams("tag"));
+            blog.setTags(tags);
             res.redirect("/index/"+title);
             return null;
         });
@@ -119,7 +121,7 @@ public class Main {
 
         get("/sign-in", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            BlogEntry blogEntry = new BlogEntry("", "", "");
+            BlogEntry blogEntry = new BlogEntry("", "", new HashSet<>());
             blogEntry.setSlug("new");
             model.put("password", req.attribute("password"));
             model.put("blog", blogEntry);
