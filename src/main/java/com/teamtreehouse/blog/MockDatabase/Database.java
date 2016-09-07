@@ -4,16 +4,18 @@ import com.teamtreehouse.blog.model.BlogEntry;
 import com.teamtreehouse.blog.model.Comment;
 import com.teamtreehouse.blog.model.BlogDAOImpl;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class Database {
     public void initializeData(BlogDAOImpl dao){
         List<Comment> comments = new ArrayList<>();
-        String tag1 = "tag1";
-        String tag2 = "tag2";
+        Set<String> tag1 = new HashSet<>();
+        Set<String> tag2 = new HashSet<>();
+
+        tag1.add("Vocations");
+        tag1.add("Some Tag");
+        tag2.add("hell");
+        tag2.add("hell2");
 
         comments.add(new Comment("Vasya", "This is cool  man, i wish i could do the same at least once in my life"));
         comments.add(new Comment("Sara", "I don't believe you!!!"));
