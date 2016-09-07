@@ -112,7 +112,7 @@ public class Main {
 
        post("/index/:slug/password", (req, res) ->{
            String title = req.params("slug");
-           res.cookie("password", req.queryParams("password"));
+           res.cookie("/", "password", req.queryParams("password"),1000, false);
            res.redirect("/index/"+title+"/edit");
            return null;
        });
